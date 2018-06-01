@@ -16,6 +16,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button mTrueButtom;
     private Button mFalseButton;
     private Button mNextButton;
+    private Boolean mButtonDisable=false;
     private TextView mQuestionTextView;
     private Question[] mQuestionBank = new Question[]{
             new Question(R.string.question_australia,true),
@@ -41,6 +42,8 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkAnswer(true);
+                mButtonDisable=true;
+                disableButtons(mButtonDisable);
             }
         });
         mFalseButton = findViewById(R.id.false_button);
@@ -48,6 +51,8 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkAnswer(false);
+                mButtonDisable=true;
+                disableButtons(mButtonDisable);
             }
         });
         mNextButton = findViewById(R.id.next_button);
@@ -56,6 +61,8 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mCurrentIndex = (mCurrentIndex+1) % mQuestionBank.length;
                 updateQuestion();
+                mButtonDisable=false;
+                disableButtons(mButtonDisable);
             }
 
         });
@@ -64,6 +71,18 @@ public class QuizActivity extends AppCompatActivity {
         public void updateQuestion() {
             int question = mQuestionBank[mCurrentIndex].getTextResId();
             mQuestionTextView.setText(question);
+
+        }
+        private void disableButtons(boolean disableButton)
+        {
+            if(disableButton == true) {
+                mTrueButtom.setEnabled(false);
+                mFalseButton.setEnabled(false);
+            }
+            else{
+                mTrueButtom.setEnabled(true);
+                mFalseButton.setEnabled(true);
+            }
         }
         private void checkAnswer(boolean userPressedTrue)
         {
