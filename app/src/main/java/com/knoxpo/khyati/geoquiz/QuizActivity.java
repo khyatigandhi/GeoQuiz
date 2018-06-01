@@ -17,6 +17,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button mFalseButton;
     private Button mNextButton;
     private Boolean mButtonDisable=false;
+    private int mCorrectedAnswerCount =0;
     private TextView mQuestionTextView;
     private Question[] mQuestionBank = new Question[]{
             new Question(R.string.question_australia,true),
@@ -67,6 +68,7 @@ public class QuizActivity extends AppCompatActivity {
 
         });
         updateQuestion();
+
          }
         public void updateQuestion() {
             int question = mQuestionBank[mCurrentIndex].getTextResId();
@@ -84,6 +86,7 @@ public class QuizActivity extends AppCompatActivity {
                 mFalseButton.setEnabled(true);
             }
         }
+
         private void checkAnswer(boolean userPressedTrue)
         {
             boolean answerIsTrue=mQuestionBank[mCurrentIndex].isAnswerTrue();
@@ -91,11 +94,22 @@ public class QuizActivity extends AppCompatActivity {
             if(userPressedTrue==answerIsTrue)
             {
                 messageResId=R.string.correct_toast;
+                mCorrectedAnswerCount++;
             }
             else{
                 messageResId=R.string.incorrect_toast;
             }
             Toast.makeText(this,messageResId,Toast.LENGTH_SHORT).show();
+            if(mCurrentIndex==mQuestionBank.length - 1){
+                int totalPercentage=(mCorrectedAnswerCount *100)/mQuestionBank.length;
+                String percentageString = String.valueOf(totalPercentage);
+
+                Log.d(TAG, "Percentage: "+percentageString);
+
+                Toast.makeText(this,percentageString,Toast.LENGTH_SHORT).show();
+                mCorrectedAnswerCount=0;
+            }
+
         }
         public void onStart() {
             super.onStart();
