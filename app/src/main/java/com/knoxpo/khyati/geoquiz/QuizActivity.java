@@ -30,6 +30,13 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
         mQuestionTextView=findViewById(R.id.question_text_view);
+        mQuestionTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCurrentIndex= (mCurrentIndex+1) % mQuestionBank.length;
+                updateQuestion();
+            }
+        });
         mTrueButtom = findViewById(R.id.true_button);
         mTrueButtom.setOnClickListener(new View.OnClickListener() {
             @Override
