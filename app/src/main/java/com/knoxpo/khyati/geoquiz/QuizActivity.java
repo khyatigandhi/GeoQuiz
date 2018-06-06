@@ -17,6 +17,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
+    //private static final String IS_CHEATER = "cheater";
     private static final int REQUEST_CODE_CHEAT = 0;
     private Button mTrueButtom;
     private Button mFalseButton;
@@ -43,6 +44,7 @@ public class QuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+           // mIsCheater = savedInstanceState.getBoolean(IS_CHEATER,false);
         }
         mQuestionTextView = findViewById(R.id.question_text_view);
         mTrueButtom = findViewById(R.id.true_button);
